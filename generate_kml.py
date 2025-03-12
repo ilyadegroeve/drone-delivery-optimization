@@ -1,3 +1,6 @@
+# This code converts a dict of coords into a kml file.
+
+
 # Coordinates for the locations
 coordinates_data = {
     "VUB": (50.9407045, 4.2108946),
