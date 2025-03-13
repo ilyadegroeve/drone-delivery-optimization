@@ -1,0 +1,1 @@
+['VUB', 'Hôpital Etterbeek-Ixelles', 'Clinique Saint-Jean', 'Hôpitaux iris Ziekenhuizen', 'Edith Cavell', "Cliniques de l'Europe", 'Epsylon ASBL', 'VUB']
