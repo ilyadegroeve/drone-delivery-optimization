@@ -90,14 +90,18 @@ def inital_vaccines_route(route):
     total_vaccines = sum(vaccines_hospitals[loc] for loc in route if loc in vaccines_hospitals)
     return total_vaccines
 
+l1 =  ['VUB', 'Hôpital Etterbeek-Ixelles', 'Hôpitaux iris Ziekenhuizen', 'Clinique Saint-Jean', 'VUB']
+l2 =  ['VUB', 'Edith Cavell', "Cliniques de l'Europe", 'Epsylon ASBL', 'VUB']
 
-subroute1 =  ['VUB', 'Hôpital Etterbeek-Ixelles', 'Hôpitaux iris Ziekenhuizen', 'Clinique Saint-Jean', 'VUB']
-subroute2 =  ['VUB', 'Edith Cavell', "Cliniques de l'Europe", 'Epsylon ASBL', 'VUB']
 
-def total_current_with_subroutes(subroute1, subroute2):
-    list_of_subroutes = [subroute1, subroute2]
+
+def total_current_with_subroutes(list_of_subroutes):
     tot1_wh = 0
+    
     for subroute in list_of_subroutes:
-        tot1_wh += total_current(subroute, initial_vaccines_amount=inital_vaccines_route(subroute))
-    print("2 subroutes", tot1_wh)
+        tot1_wh += total_current(subroute, inital_vaccines_route(subroute))
+    print(f"{len(list_of_subroutes)} subroutes total consumption: {tot1_wh} Wh")
+    return tot1_wh
 
+
+print(total_current(flight_route))
