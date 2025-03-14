@@ -12,16 +12,15 @@ vaccines_hospitals = {
     "VUB": 0,
 }
 
-real_coordinates = {
-    "VUB": (50.8222329, 4.3969074),
-    "Edith Cavell": (50.8139343, 4.3578839),
-    "Cliniques de l'Europe": (50.8050334, 4.3686235),
-    "Epsylon ASBL": (50.7861456, 4.3666663),
-    "Hôpital Etterbeek-Ixelles": (50.8252055, 4.3787444),
-    "Clinique Saint-Jean": (50.8543172, 4.3603786),
-    "Hôpitaux iris Ziekenhuizen": (50.8334341, 4.3559617),
+field_coordinates = {
+    "VUB": (50.9407045, 4.2108946),
+    "Edith Cavell": (50.9406812, 4.2104519),
+    "Cliniques de l'Europe": (50.9405649, 4.2105543),
+    "Epsylon ASBL": (50.9403610, 4.2105000),
+    "Hôpital Etterbeek-Ixelles": (50.9407687, 4.2107004),
+    "Clinique Saint-Jean": (50.9411201, 4.2105495),
+    "Hôpitaux iris Ziekenhuizen": (50.9408986, 4.2104647),
 }
-
 
 
 def calculate_distance(coord1, coord2):
@@ -57,7 +56,7 @@ def total_current(path, initial_vaccines_amount=200, flight_velocity=7):  # flig
             amount_of_vaccines -= vaccines_hospitals[path[i]]
         list_of_vaccine_amounts.append(amount_of_vaccines)
 
-        distance = calculate_distance(real_coordinates[path[i]], real_coordinates[path[i+1]])
+        distance = calculate_distance(field_coordinates[path[i]], field_coordinates[path[i+1]])
         list_of_distances.append(round(distance, 2))
         flight_time = distance / flight_velocity  
         list_of_flight_times.append(round(flight_time,2))
@@ -70,34 +69,24 @@ def total_current(path, initial_vaccines_amount=200, flight_velocity=7):  # flig
         total_ah += ah
         total_ah = round(total_ah,2)
 
-    total_wh = round(total_ah * 14.8)
+    print("Vaccine amounts:", list_of_vaccine_amounts)
+    print("List of current:", list_of_current)
+    print("List of distances:", list_of_distances)
+    print("List of flight times (hours):", list_of_flight_times)
+    print("List of Ah:", list_of_ah)
+    print(f"Total distance: {(sum(list_of_distances))} km")
+
+    print(f"Total flight time: {round(sum(list_of_flight_times), 2)} hours")
+    print(f"Total Ah: {total_ah} Ah")
+    print(f"Total Wh: {round(total_ah * 14.8, 3)} Wh")
     
 
-    # print("Vaccine amounts:", list_of_vaccine_amounts)
-    # print("List of current:", list_of_current)
-    # print("List of distances:", list_of_distances)
-    # print("List of flight times (hours):", list_of_flight_times)
-    # print("List of Ah:", list_of_ah)
-    # print(f"Total distance: {round(sum(list_of_distances))} km")
-
-    # print(f"Total Ah: {total_ah} Ah")
-    # print(f"Total Wh: {round(total_ah * 14.8, 3)} Wh")
+    return path, list_of_vaccine_amounts
 
 
-    return total_wh
-
-def inital_vaccines_route(route):
-    total_vaccines = sum(vaccines_hospitals[loc] for loc in route if loc in vaccines_hospitals)
-    return total_vaccines
+l1 =  ['VUB', 'Hôpital Etterbeek-Ixelles', 'Hôpitaux iris Ziekenhuizen', 'Clinique Saint-Jean', 'VUB']
+l2 =  ['VUB', 'Edith Cavell', "Cliniques de l'Europe", 'Epsylon ASBL', 'VUB']
 
 
-subroute1 =  ['VUB', 'Hôpital Etterbeek-Ixelles', 'Hôpitaux iris Ziekenhuizen', 'Clinique Saint-Jean', 'VUB']
-subroute2 =  ['VUB', 'Edith Cavell', "Cliniques de l'Europe", 'Epsylon ASBL', 'VUB']
 
-def total_current_with_subroutes(subroute1, subroute2):
-    list_of_subroutes = [subroute1, subroute2]
-    tot1_wh = 0
-    for subroute in list_of_subroutes:
-        tot1_wh += total_current(subroute, initial_vaccines_amount=inital_vaccines_route(subroute))
-    print("2 subroutes", tot1_wh)
-
+total_current(l1, )
