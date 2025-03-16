@@ -1,7 +1,6 @@
 import itertools
 from copy import deepcopy
 
-# Using the data and functions from the provided code
 vaccines_hospitals = {
     "Hôpital Etterbeek-Ixelles": 30,
     "Clinique Saint-Jean": 20,
@@ -38,7 +37,7 @@ def calculate_distance(coord1, coord2):
     r = 6371  
     return c * r
 
-def total_current(path, initial_vaccines_amount=200, flight_velocity=7):  # flight_velocity in km/h
+def total_current(path, initial_vaccines_amount=200, flight_velocity=7, vaccines_current_relation=vaccines_current):  # flight_velocity in km/h
     amount_of_vaccines = initial_vaccines_amount
     list_of_vaccine_amounts = []
     list_of_current = []
@@ -57,7 +56,7 @@ def total_current(path, initial_vaccines_amount=200, flight_velocity=7):  # flig
         flight_time = distance / flight_velocity  
         list_of_flight_times.append(round(flight_time,2))
 
-        current = vaccines_current.get(amount_of_vaccines, 0)
+        current = vaccines_current_relation.get(amount_of_vaccines, 0)
         list_of_current.append(round(current,2))
 
         ah = current * flight_time
@@ -81,7 +80,6 @@ def total_current_with_subroutes(list_of_subroutes):
     print(f"{len(list_of_subroutes)} subroutes total consumption: {tot1_wh} Wh")
     return tot1_wh
 
-# Get all hospitals except VUB
 hospitals = [h for h in vaccines_hospitals.keys() if h != "VUB"]
 
 def get_all_partitions(items, max_parts=None):
@@ -113,7 +111,6 @@ def optimize_route():
     best_subroutes = None
     best_partition = None
     
-    # Generate all permutations of hospitals
     for perm in itertools.permutations(hospitals):
         # For each permutation, consider all possible partitions
         for max_parts in range(1, len(hospitals) + 1):
@@ -126,12 +123,11 @@ def optimize_route():
                     best_subroutes = subroutes
                     best_partition = partition
                     print(f"New best: {best_consumption} Wh with {len(best_subroutes)} subroutes")
-                    print(f"Partition: {best_partition}")
+                    print(f"Partition: {best_par tition}")
                     print(f"Subroutes: {best_subroutes}")
     
     return best_subroutes, best_consumption
 
-# Run the optimization
 best_routes, best_wh = optimize_route()
 print("\nFinal result:")
 print(f"Best consumption: {best_wh} Wh")

@@ -9,5 +9,3 @@ field_coordinates = {
 }
 
 
-def get_field_coordinates():
-    return field_coordinates
